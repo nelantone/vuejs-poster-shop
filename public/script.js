@@ -15,11 +15,11 @@ new Vue({
   },
   methods: {
     appendItems: function() {
-      // if (this.items.length < this.results.length) {
-      //   var append = this.results.slice(this.items.length, this.items.length + LOAD_NUM);
-      //   this.items = this.items.concat(append);
-      // }
-      console.log('Appenditems')
+      if (this.items.length < this.results.length) {
+        var append = this.results.slice(this.items.length, this.items.length + LOAD_NUM);
+        this.items = this.items.concat(append);
+      }
+      // console.log('Appenditems')
     },
     onSubmit: function() {  
       this.items = [];
@@ -28,7 +28,7 @@ new Vue({
       .get('/search/'.concat(this.newSearch))
       .then(function(res) {
         this.lastSearch = this.newSearch
-        this.items = res.data;
+        this.results = res.data;
         this.appendItems();
         this.loading = false;
       })
@@ -81,9 +81,9 @@ new Vue({
     var vueInstance = this;
     var elem = document.getElementById('product-list-bottom');
     var watcher = scrollMonitor.create(elem);
-    watcher.enterViewport(function() {
+    watcher.enterViewport(() => {
       // vueInstance.onSubmit();
-      vueInstance.appendItems();
+      this.appendItems();
     });
   }
 });
