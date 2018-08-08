@@ -28,7 +28,7 @@
               <br/><h3>Loading ...</h3></br>
             </div>
             <div class="search-results" v-else>
-              Found  {{ items.length }} results for search term {{ lastSearch }}
+              Found  {{ results.length }} results for search term {{ lastSearch }}
             </div>
             <div class="product" v-for="(item, index) in items">
                 <h4 class="product-title"></h4>
@@ -43,7 +43,9 @@
                 <button v-on:click="addItem(index)" class="add-to-cart btn">Add to cart</button>
             </div>
         </div>
-        <div id="product-list-bottom"></div>
+        <div id="product-list-bottom">
+          <div v-if="items.length == results.length && results.length">No more items</div>
+        </div>
     </div>
     <div class="cart">
         <h2>Shopping Cart</h2>
